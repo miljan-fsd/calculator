@@ -1,0 +1,103 @@
+@import 'colors';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $bg-color;
+  font-family: 'Orbitron', sans-serif;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  color: $text-color;
+  font-style: italic;
+}
+
+.calc {
+  background-color: $calc-bg-color;
+  box-shadow: 5px 5px 5px $calc-color inset, -7px -7px 5px $calc-color inset;
+  border-radius: 10px;
+  margin: 5% auto;
+  text-align: center;
+  width: 300px;
+  padding: 10px 0;
+}
+
+.box {
+  border-radius: 5px;
+  box-shadow: -2px -2px 4px $calc-color inset, 2px 2px 4px $calc-color inset;
+  border: 1px solid $calc-color;
+  background-color: $display-color;
+  margin: 5px 10px;
+  padding: 0 5px;
+}
+
+.display {
+  font-size: 25px;
+}
+
+.display,
+.history {
+  text-align: right;
+  word-wrap: break-word;
+  margin: 0;
+  padding: 5px;
+  min-height: 30px;
+  max-width: 100%;
+}
+
+.row {
+  display: flex;
+  margin: 0 5px;
+}
+
+.btn {
+  flex: 1;
+  background: linear-gradient(
+    to right,
+    $btn-gradient-color-1,
+    $btn-gradient-color-2,
+    $btn-gradient-color-1
+  );
+  color: $text-color;
+  font-size: 20px;
+  margin: 5px;
+  padding: 10px 0;
+  border: none;
+  outline: none;
+  box-shadow: 4px 4px 10px $btn-color;
+  border-radius: 5px;
+  border-top: 1px solid $btn-border-color;
+  border-left: 1px solid $btn-border-color;
+  border-right: 1px solid $btn-border-color;
+  border-bottom: 3px solid $btn-color;
+
+  &:hover {
+    color: $btn-hover-color;
+    cursor: pointer;
+  }
+
+  &:active {
+    box-shadow: none;
+    outline: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.copyright {
+  margin: 10px 0 0 0;
+  font-size: 12px;
+  color: $text-color;
+}
+
+@media screen and (max-width: 350px) {
+  .calc {
+    width: 100%;
+  }
+}
