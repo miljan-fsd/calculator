@@ -21,44 +21,67 @@ $(document).ready(function() {
   }
 
   function calculate(action) {
-    if (!display.text().match(/([\d])+[\)]?$/)) {
-      display.text('Error')
-    } else {
-      var result
-      var expression = display.text().replace(/action/, '')
+    var result
+    var expression = display.text().replace(/action/, '')
 
-      if (action === '=') {
+    if (action === '=') {
+      try {
         result = eval(expression)
-        result = roundResult(result)
-        history.append('=' + result)
-      } else if (action === 'pow') {
-        result = Math.pow(expression, 2)
-        result = roundResult(result)
-        history.text(result)
-      } else if (action === 'sqrt') {
-        if (Math.sign(expression) === -1) {
-          display.text('Error')
-        } else {
-          result = Math.sqrt(expression)
-          result = roundResult(result)
-          history.text(result)
-        }
-      } else if (action === 'sign') {
-        Math.sign(expression) === 1 ? (expression *= -1) : (expression *= -1)
-        result = roundResult(expression)
-        history.text(result)
-      } else if (action === '%') {
-        result = expression / 100
-        result = roundResult(result)
-        history.text(result)
+      } catch (e) {
+        return display.text('Error')
       }
 
-      display.text(result)
+      result = roundResult(result)
+      history.append('=' + result)
+    } else if (action === 'pow') {
+      result = Math.pow(expression, 2)
+
+      if (isNaN(result)) {
+        return display.text('Error')
+      }
+
+      result = roundResult(result)
+      history.text(result)
+    } else if (action === 'sqrt') {
+      result = Math.sqrt(expression)
+
+      if (isNaN(result)) {
+        return display.text('Error')
+      }
+
+      result = roundResult(result)
+      history.text(result)
+    } else if (action === 'sign') {
+      Math.sign(expression) === 1
+        ? (result = expression *= -1)
+        : (result = expression *= -1)
+
+      if (isNaN(result)) {
+        return display.text('Error')
+      }
+
+      result = roundResult(result)
+      history.text(result)
+    } else if (action === '%') {
+      result = expression / 100
+
+      if (isNaN(result)) {
+        return display.text('Error')
+      }
+
+      result = roundResult(result)
+      history.text(result)
     }
+
+    display.text(result)
   }
 
   $('.btn').click(function() {
     var value = $(this).val()
+
+    if (display.text().match(/[^\d\-\+\*\/\.\)\(]/)) {
+      clearAll()
+    }
 
     if (display.text() === 'O') {
       display.text('')
