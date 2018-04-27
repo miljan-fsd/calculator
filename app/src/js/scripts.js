@@ -3,7 +3,7 @@ $(document).ready(function() {
   var history = $('.history')
 
   function clearAll() {
-    display.html('O')
+    display.html('0')
     history.html('')
   }
 
@@ -23,6 +23,10 @@ $(document).ready(function() {
   function calculate(action) {
     var result
     var expression = display.text().replace(/action/, '')
+
+    if (!expression.match(/[\d\+-\/\*\.\)\(]/)) {
+      return display.text('Error')
+    }
 
     if (action === '=') {
       try {
@@ -83,7 +87,7 @@ $(document).ready(function() {
       clearAll()
     }
 
-    if (display.text() === 'O') {
+    if (display.text() === '0' && value !== '.') {
       display.text('')
       history.text('')
     }
